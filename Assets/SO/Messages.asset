@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Entries:
   - <Key>k__BackingField: Greeting
-    <Entry>k__BackingField: Hey, welcome to Interdimensional (ID) Post Office! Do
-      you see this thing on the right? Send mail there.
-  - <Key>k__BackingField: 
-    <Entry>k__BackingField: 
-  - <Key>k__BackingField: 
-    <Entry>k__BackingField: 
+    <Entry>k__BackingField: Game by Mykyta Balabuiev
+  - <Key>k__BackingField: 0
+    <Entry>k__BackingField: Hey, this is Interdimensional (ID) Post Office. Do you
+      see this thing on the right? Send mail there.
+  - <Key>k__BackingField: 1
+    <Entry>k__BackingField: Click the mail button to send it.
   - <Key>k__BackingField: 
     <Entry>k__BackingField: 
   - <Key>k__BackingField: 

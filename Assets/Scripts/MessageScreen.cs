@@ -19,10 +19,6 @@ public class MessageScreen : Singleton<MessageScreen>
         AddEntry("1");
     }
 
-    void Update()
-    {
-
-    }
     public void AddEntry(string key)
     {
         var entryString = Entries.Entries.Where(x => x.Key.Equals(key)).Single().Entry;
@@ -30,4 +26,16 @@ public class MessageScreen : Singleton<MessageScreen>
         var messageEntry = Instantiate(_messageEntryPrefab, _messageEntryContentRoot);
         messageEntry.text = entryString;
     }
+
+    private void OnDisable()
+    {
+
+    }
+
+    private void OnEnable()
+    {
+
+    }
+
+
 }

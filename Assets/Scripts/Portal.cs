@@ -55,7 +55,7 @@ public class Portal : MonoBehaviour
         {
             _portalEffect.DOKill();
             var clickSequence = DOTween.Sequence();
-            clickSequence.Append(_portalEffect.DOScale(Vector3.one * 0.9f, 0.1f).SetEase(Ease.InQuad));
+            clickSequence.Append(_portalEffect.DOScale(Vector3.one * 0.95f, 0.1f).SetEase(Ease.InQuad));
             clickSequence.Append(_portalEffect.DOScale(Vector3.one, 0.2f));
         }
     }

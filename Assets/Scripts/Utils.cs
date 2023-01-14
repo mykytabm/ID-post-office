@@ -20,10 +20,10 @@ public static class Utils
     {
         var convertedGold = 0f;
 
-        if (gold >= 1000000 && gold < 1000000000)
+        if (gold >= 100000000 && gold < 1000000000)
         {
             convertedGold = (float)gold / 1000000;
-            return convertedGold.ToString("F3") + "M";
+            return convertedGold.ToString("F2") + "M";
         }
 
         return gold.ToString("N0", new CultureInfo("en-US"));

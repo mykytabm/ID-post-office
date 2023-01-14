@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using DG.Tweening;
 
 public class Portal : MonoBehaviour
@@ -27,17 +28,24 @@ public class Portal : MonoBehaviour
 
     private void SendMail()
     {
-        var pos = Random.insideUnitCircle.normalized * 3.5f;
-        var mail = Instantiate(_mailPrefab, pos, Quaternion.identity);
+        var startPos = Random.insideUnitCircle.normalized * 3.5f;
+        var targetPos = (Vector2)transform.position + Random.insideUnitCircle;
+        var mail = Instantiate(_mailPrefab, startPos, Quaternion.identity);
 
-        var mailSequence = DOTween.Sequence();
-        mailSequence.Append(mail.transform.DOMove(transform.position, Random.Range(0.6f, 0.8f)).SetEase(Ease.InQuad));
-        mailSequence.Append(mail.transform.DOScale(Vector3.zero, 0.4f));
-        mailSequence.OnComplete(() =>
+        mail.transform.DOMove(targetPos, Random.Range(0.6f, 0.8f))
+        .SetEase(Ease.InQuad)
+        .OnComplete(() =>
         {
-            Destroy(mail);
-            GameManager.Instance.ManualGoldReceive();
-            BounceEffect();
+            mail.transform.DOScale(Vector3.zero, 0.4f).OnComplete(() =>
+            {
+                Destroy(mail);
+            });
+
+            StartCoroutine(Utils.Wait(0.1f, () =>
+            {
+                GameManager.Instance.ManualGoldReceive(mail.transform.position);
+                BounceEffect();
+            }));
         });
     }
 
@@ -47,7 +55,7 @@ public class Portal : MonoBehaviour
         {
             _portalEffect.DOKill();
             var clickSequence = DOTween.Sequence();
-            clickSequence.Append(_portalEffect.DOScale(Vector3.one * 1.15f, 0.1f).SetEase(Ease.InQuad));
+            clickSequence.Append(_portalEffect.DOScale(Vector3.one * 0.9f, 0.1f).SetEase(Ease.InQuad));
             clickSequence.Append(_portalEffect.DOScale(Vector3.one, 0.2f));
         }
     }

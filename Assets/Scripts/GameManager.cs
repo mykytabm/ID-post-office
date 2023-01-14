@@ -4,23 +4,41 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public int Gold { get; private set; }
-    public int DarkEssence { get; private set; }
+    public ulong Gold { get; private set; }
+    public ulong DarkEssence { get; private set; }
 
-    private int _goldPerClick = 1;
+    [SerializeField] bool _cheat = false;
+    [SerializeField] ulong _cheatGold = 10000;
+
+    private ulong _goldPerClick = 1;
+
+    private TextSpawner _textSpawner;
+
+    private UIManager _uiManager;
 
     void Start()
     {
-
+        _textSpawner = GetComponent<TextSpawner>();
+        _uiManager = UIManager.Instance;
     }
 
-    void Update()
+    public void ManualGoldReceive(Vector2 position)
     {
+        if (_cheat)
+        {
+            Gold += _cheatGold;
+        }
+        else
+        {
+            Gold += _goldPerClick;
+        }
 
+        SpawnText(position, "+" + _goldPerClick.ToString());
+        _uiManager.UpdateGold();
     }
 
-    public void ManualGoldReceive()
+    private void SpawnText(Vector2 pos, string text)
     {
-        Gold += _goldPerClick;
+        _textSpawner.SpawnText(new TextSettings(pos, text));
     }
 }

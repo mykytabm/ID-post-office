@@ -17,7 +17,7 @@ public class TextSpawner : MonoBehaviour
 
     public void SpawnText(TextSettings settings)
     {
-        var targetPos = settings.randomOffset ? settings.pos + Random.insideUnitCircle : settings.pos;
+        var targetPos = settings.randomOffset ? settings.pos + Random.insideUnitCircle * 0.5f : settings.pos;
         var textInst = Instantiate(_textPrefab, targetPos, Quaternion.identity);
         var text = textInst.GetComponent<TMPro.TextMeshPro>();
         text.text = settings.text;

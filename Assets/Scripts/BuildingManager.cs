@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,19 +41,54 @@ public class BuildingManager : Singleton<BuildingManager>
 
             buildingEntry.SetEntryData(buildingDataSO.icon, buildingData, buildingDataSO.Description);
         }
+
+        CheckUpgradeAvailability(GameManager.Instance.Gold);
     }
 
     public void BuyBuilding(EBuildingType type)
     {
+        var buildingData = currentBuildings[type];
+        var buildingPrice = (ulong)(buildingData.InitialCost * Math.Pow(buildingData.GrowthRate, (buildingData.Level + 1)));
+
+        if (GameManager.Instance.Gold < buildingPrice)
+        {
+            return;
+        }
+
+        GameManager.Instance.SpendGold(buildingPrice);
+
         var building = currentBuildings[type];
 
         building.Level++;
         building.TotalProduction = building.MailGenerated * (ulong)building.Level;
+
+        currentBuildings[type] = building;
+
         UpdateBuilding(building);
+
+        // TODO: Spawn building
+    }
+
+    public void BuildBuilding(EBuildingType type)
+    {
+        switch (type)
+        {
+            case EBuildingType.TimeMachine:
+
+                break;
+        }
     }
 
     public void UpdateBuilding(BuildingData data)
     {
         buildingUIEntries[data.BuildingType].UpdateData(data);
+    }
+
+    public void CheckUpgradeAvailability(ulong currentGold)
+    {
+        foreach (var uiEntry in buildingUIEntries)
+        {
+            uiEntry.Value.SetBuyButtonActive(currentGold);
+        }
     }
 }

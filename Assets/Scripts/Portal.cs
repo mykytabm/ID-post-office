@@ -30,7 +30,7 @@ public class Portal : MonoBehaviour
     {
         var startPos = Random.insideUnitCircle.normalized * 3.5f;
         var targetPos = (Vector2)transform.position + Random.insideUnitCircle;
-        var mail = Instantiate(_mailPrefab, startPos, Quaternion.identity);
+        var mail = Instantiate(_mailPrefab, startPos + (Vector2)transform.position, Quaternion.identity);
 
         mail.transform.DOMove(targetPos, Random.Range(0.6f, 0.8f))
         .SetEase(Ease.InQuad)

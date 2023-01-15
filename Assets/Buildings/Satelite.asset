@@ -17,8 +17,8 @@ MonoBehaviour:
   data:
     BuildingName: Satellite
     BuildingType: 0
-    InitialCost: 0
-    GrowthRate: 0
+    InitialCost: 10000
+    GrowthRate: 1.15
     Level: 0
-    MailGenerated: 0
+    MailGenerated: 50
     TotalProduction: 0

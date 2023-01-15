@@ -15,10 +15,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 7a66537b337eb4248bb6dfc067764696, type: 3}
   Description: 
   data:
-    BuildingName: Time Travel Machine
-    BuildingType: 0
-    InitialCost: 0
-    GrowthRate: 0
+    BuildingName: Mail Machine
+    BuildingType: 1
+    InitialCost: 100
+    GrowthRate: 1.07
     Level: 0
-    MailGenerated: 0
+    MailGenerated: 10
     TotalProduction: 0

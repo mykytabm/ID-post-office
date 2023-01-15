@@ -28,22 +28,34 @@ public class GameManager : Singleton<GameManager>
     {
         if (_cheat)
         {
-            Gold += _cheatGold;
+            ReceiveGold(_cheatGold);
         }
         else
         {
-            Gold += _goldPerClick;
+            ReceiveGold(_goldPerClick);
         }
 
         SpawnText(position, "+" + _goldPerClick.ToString());
-        _uiManager.UpdateGold();
     }
 
     public void GoldReceive(GoldReceiveSettings settings)
     {
-        Gold += settings.gold;
+        ReceiveGold(settings.gold);
         SpawnText(settings.pos, "+" + settings.gold.ToString());
+    }
+
+    private void ReceiveGold(ulong gold)
+    {
+        Gold += gold;
         _uiManager.UpdateGold();
+        BuildingManager.Instance.CheckUpgradeAvailability(Gold);
+    }
+
+    public void SpendGold(ulong gold)
+    {
+        Gold -= gold;
+        _uiManager.UpdateGold();
+        BuildingManager.Instance.CheckUpgradeAvailability(Gold);
     }
 
     private void SpawnText(Vector2 pos, string text)

@@ -11,7 +11,7 @@ public class BuildingEntry : MonoBehaviour
     public TextMeshProUGUI Description;
     public TextMeshProUGUI Level;
     public TextMeshProUGUI Cost;
-    public GameObject BuyButtonRoot;
+    public Button BuyButton;
 
     private List<GameObject> _modeOne = new List<GameObject>();
     private List<GameObject> _modeTwo = new List<GameObject>();
@@ -30,7 +30,7 @@ public class BuildingEntry : MonoBehaviour
         {
             _modeTwo.Add(Description.gameObject);
         }
-        _modeTwo.Add(BuyButtonRoot);
+        _modeTwo.Add(BuyButton.gameObject);
 
     }
     public void SetEntryData(Sprite icon, BuildingData buildingData, string description = "")
@@ -44,7 +44,7 @@ public class BuildingEntry : MonoBehaviour
         }
         Level.text = buildingData.Level.ToString();
 
-        if (buildingData.Level > 1)
+        if (buildingData.Level > 0)
         {
             _currentPrice = (ulong)(buildingData.InitialCost * Math.Pow(buildingData.GrowthRate, (buildingData.Level + 1)));
         }
@@ -52,8 +52,7 @@ public class BuildingEntry : MonoBehaviour
         {
             _currentPrice = buildingData.InitialCost;
         }
-
-        Cost.text = _currentPrice.ToString();
+        Cost.text = Utils.GoldToString(_currentPrice);
     }
 
     public void UpdateData(BuildingData data)
@@ -63,11 +62,22 @@ public class BuildingEntry : MonoBehaviour
 
     public void BuyLevel()
     {
-        if (GameManager.Instance.Gold < _currentPrice)
-        {
-            return;
-        }
         BuildingManager.Instance.BuyBuilding(buildingType);
+    }
+
+    public void SetBuyButtonActive(ulong gold)
+    {
+        if (_currentPrice <= gold)
+        {
+            BuyButton.interactable = true;
+        }
+        else
+        {
+            if (BuyButton.interactable)
+            {
+                BuyButton.interactable = false;
+            }
+        }
     }
 
     private void SetActiveGOsInList(List<GameObject> list, bool newEnabled)

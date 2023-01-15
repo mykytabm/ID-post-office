@@ -17,8 +17,8 @@ MonoBehaviour:
   data:
     BuildingName: Mail Factory
     BuildingType: 2
-    InitialCost: 0
-    GrowthRate: 0
+    InitialCost: 100000
+    GrowthRate: 1.3
     Level: 0
-    MailGenerated: 0
+    MailGenerated: 1000
     TotalProduction: 0

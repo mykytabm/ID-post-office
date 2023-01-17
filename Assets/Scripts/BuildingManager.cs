@@ -13,6 +13,8 @@ public class BuildingManager : Singleton<BuildingManager>
     public Dictionary<EBuildingType, BuildingData> currentBuildings = new();
     public Dictionary<EBuildingType, BuildingEntry> buildingUIEntries = new();
 
+    public List<Building> buildings = new();
+
     void Start()
     {
         CreateBuildingEntries();
@@ -28,14 +30,7 @@ public class BuildingManager : Singleton<BuildingManager>
 
             buildingUIEntries.Add(buildingDataSO.data.BuildingType, buildingEntry);
 
-            var buildingData = new BuildingData(
-                    buildingDataSO.data.BuildingName,
-                    buildingDataSO.data.BuildingType,
-                    buildingDataSO.data.InitialCost,
-                    buildingDataSO.data.GrowthRate,
-                    buildingDataSO.data.Level,
-                    buildingDataSO.data.MailGenerated,
-                    0);
+            var buildingData = new BuildingData(buildingDataSO.data);
 
             currentBuildings.Add(buildingDataSO.data.BuildingType, buildingData);
 
@@ -64,7 +59,7 @@ public class BuildingManager : Singleton<BuildingManager>
 
         currentBuildings[type] = building;
 
-        UpdateBuilding(building);
+        UpdateBuilding(null, building);
 
         // TODO: Spawn building
     }
@@ -78,10 +73,16 @@ public class BuildingManager : Singleton<BuildingManager>
                 break;
         }
     }
+    public BuildingData GetBuildingData(EBuildingType type)
+    {
+        return currentBuildings[type];
+    }
 
-    public void UpdateBuilding(BuildingData data)
+    public void UpdateBuilding(Building building, BuildingData data)
     {
         buildingUIEntries[data.BuildingType].UpdateData(data);
+
+
     }
 
     public void CheckUpgradeAvailability(ulong currentGold)

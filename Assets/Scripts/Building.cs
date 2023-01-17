@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class MailMine : MonoBehaviour
+public class Building : MonoBehaviour
 {
     public Transform visualRoot;
-    public EBuildingType mineType;
 
-    float _t;
-    float _targetT;
-    private ulong _gold;
-    MineSettings _settings;
+    private BuildingData _data;
+    private float _t;
+    private float _targetT;
+    private ulong _generationRate;
 
     void Awake()
     {
@@ -23,7 +22,7 @@ public class MailMine : MonoBehaviour
         _t -= Time.fixedDeltaTime;
         if (_t <= 0)
         {
-            GameManager.Instance.GoldReceive(new GoldReceiveSettings(mineType, transform.position, _gold, _settings.SpawnEffects));
+            GameManager.Instance.GoldReceive(new GoldReceiveSettings(_data.BuildingType, transform.position, _generationRate, _data.SpawnEffects));
             BounceEffect();
             _t = _targetT;
         }
@@ -42,10 +41,10 @@ public class MailMine : MonoBehaviour
 
     public void UpdateSettings()
     {
-        _settings = GameManager.Instance.GetMineSettings(mineType);
+        _data = BuildingManager.Instance.GetBuildingData(_data.BuildingType);
 
-        _targetT = _settings.time;
+        _targetT = _data.Time;
         _t = _targetT;
-        _gold = _settings.Gold;
+        _generationRate = _data.MailGenerated;
     }
 }

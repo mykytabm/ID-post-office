@@ -28,7 +28,7 @@ public class Portal : MonoBehaviour
 
     private void SendMail()
     {
-        var startPos = Random.insideUnitCircle.normalized * 3.5f;
+        var startPos = Random.insideUnitCircle.normalized * 3f;
         var targetPos = (Vector2)transform.position + Random.insideUnitCircle;
         var mail = Instantiate(_mailPrefab, startPos + (Vector2)transform.position, Quaternion.identity);
 

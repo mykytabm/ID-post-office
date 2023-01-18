@@ -156,7 +156,7 @@ Transform:
   m_Children:
   - {fileID: 494479173}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &427923038
 MonoBehaviour:
@@ -232,7 +232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 432156326}
-  - component: {fileID: 432156327}
   m_Layer: 5
   m_Name: Mail Garage
   m_TagString: Untagged
@@ -263,24 +262,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.25990295, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &432156327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432156325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac2cb71cdb5622439ed18b7e4a5e8a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingsData:
-  - {fileID: 11400000, guid: 00a5dc2f9fca15043a8ac67f6902549c, type: 2}
-  - {fileID: 11400000, guid: 73ac8c12768bf914d9cb4bc52451e264, type: 2}
-  - {fileID: 11400000, guid: d0022ded9907fc940ac01a248664bba4, type: 2}
-  BuildingEntryPrefab: {fileID: 6547863018561244020, guid: 2ea251706cf6f8d4591e7da74853c944, type: 3}
-  buildingEntriesParent: {fileID: 513605655}
 --- !u!1 &469865838
 GameObject:
   m_ObjectHideFlags: 0
@@ -5492,7 +5473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &575312052
 GameObject:
@@ -5652,27 +5633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cheat: 0
   _cheatGold: 100009
-  mineTimes:
-  - <Mine>k__BackingField: 0
-    <time>k__BackingField: 1
-    <Gold>k__BackingField: 5
-    <SpawnEffects>k__BackingField: 0
-  - <Mine>k__BackingField: 1
-    <time>k__BackingField: 3
-    <Gold>k__BackingField: 30
-    <SpawnEffects>k__BackingField: 0
-  - <Mine>k__BackingField: 2
-    <time>k__BackingField: 3
-    <Gold>k__BackingField: 40
-    <SpawnEffects>k__BackingField: 0
-  - <Mine>k__BackingField: 3
-    <time>k__BackingField: 1
-    <Gold>k__BackingField: 100
-    <SpawnEffects>k__BackingField: 0
-  - <Mine>k__BackingField: 4
-    <time>k__BackingField: 0.2
-    <Gold>k__BackingField: 1
-    <SpawnEffects>k__BackingField: 0
 --- !u!114 &576348173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6321,6 +6281,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977317070}
   m_CullTransparentMesh: 1
+--- !u!1 &1027080685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1027080686}
+  m_Layer: 0
+  m_Name: BuildingsRoot
+  m_TagString: BuildingsRoot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1027080686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027080685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.02, y: -0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132960813
 GameObject:
   m_ObjectHideFlags: 0
@@ -6607,7 +6598,7 @@ RectTransform:
   - {fileID: 1452996240}
   - {fileID: 432156326}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6950,6 +6941,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636081407}
   m_CullTransparentMesh: 1
+--- !u!1 &1730158402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730158404}
+  - component: {fileID: 1730158403}
+  m_Layer: 0
+  m_Name: BuildingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1730158403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730158402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac2cb71cdb5622439ed18b7e4a5e8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingsData:
+  - {fileID: 11400000, guid: 00a5dc2f9fca15043a8ac67f6902549c, type: 2}
+  - {fileID: 11400000, guid: 73ac8c12768bf914d9cb4bc52451e264, type: 2}
+  - {fileID: 11400000, guid: d0022ded9907fc940ac01a248664bba4, type: 2}
+  BuildingEntryPrefab: {fileID: 6547863018561244020, guid: 2ea251706cf6f8d4591e7da74853c944, type: 3}
+  buildingEntriesParent: {fileID: 513605655}
+  spawnedBuildingsVisuals: []
+  spawnedBuildingsData: []
+  buildingsRoot: {fileID: 1027080686}
+--- !u!4 &1730158404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730158402}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 105.828186, y: 433.1685, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1742554546
 GameObject:
   m_ObjectHideFlags: 0

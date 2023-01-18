@@ -22,3 +22,6 @@ MonoBehaviour:
     Level: 0
     MailGenerated: 50
     TotalProduction: 0
+    Time: 1
+    SpawnEffects: 1
+  BuildingPrefab: {fileID: 8407300427115752506, guid: 588996c1f2e39804187e9234fb671d26, type: 3}

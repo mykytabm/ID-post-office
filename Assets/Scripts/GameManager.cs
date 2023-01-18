@@ -34,13 +34,16 @@ public class GameManager : Singleton<GameManager>
             ReceiveGold(_goldPerClick);
         }
 
-        SpawnText(position, "+" + _goldPerClick.ToString());
+        SpawnText(new TextSettings(position, "+" + _goldPerClick.ToString()));
     }
 
     public void GoldReceive(GoldReceiveSettings settings)
     {
         ReceiveGold(settings.gold);
-        SpawnText(settings.pos, "+" + settings.gold.ToString());
+        if (settings.spawnEffects)
+        {
+            SpawnText(new TextSettings(settings.pos, "+" + settings.gold.ToString(), settings.randomOffset, settings.offset));
+        }
     }
 
     private void ReceiveGold(ulong gold)
@@ -57,13 +60,13 @@ public class GameManager : Singleton<GameManager>
         BuildingManager.Instance.CheckUpgradeAvailability(Gold);
     }
 
-    private void SpawnText(Vector2 pos, string text)
+    public void SpawnText(TextSettings settings)
     {
-        _textSpawner.SpawnText(new TextSettings(pos, text));
+        _textSpawner.SpawnText(settings);
     }
 }
 
-public record GoldReceiveSettings(EBuildingType mineType, Vector2 pos, ulong gold, bool spawnEffects);
+public record GoldReceiveSettings(EBuildingType mineType, Vector2 pos, ulong gold, bool spawnEffects, bool randomOffset = false, float offset = 0);
 
 public enum EBuildingType
 {

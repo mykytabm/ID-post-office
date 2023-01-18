@@ -13,11 +13,27 @@ public class BuildingManager : Singleton<BuildingManager>
     public Dictionary<EBuildingType, BuildingData> currentBuildings = new();
     public Dictionary<EBuildingType, BuildingEntry> buildingUIEntries = new();
 
-    public List<Building> buildings = new();
+    public List<Building> spawnedBuildingsVisuals = new();
 
-    void Start()
+    public List<BuildingData> spawnedBuildingsData = new();
+    public Transform buildingsRoot;
+
+    private void Start()
     {
         CreateBuildingEntries();
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (var building in spawnedBuildingsData)
+        {
+            building.currentTime -= Time.fixedDeltaTime;
+            if (building.currentTime <= 0)
+            {
+                GameManager.Instance.GoldReceive(new GoldReceiveSettings(building.BuildingType, Vector2.zero, building.TotalProduction, false));
+                building.currentTime = building.Time;
+            }
+        }
     }
 
     private void CreateBuildingEntries()
@@ -52,26 +68,43 @@ public class BuildingManager : Singleton<BuildingManager>
 
         GameManager.Instance.SpendGold(buildingPrice);
 
-        var building = currentBuildings[type];
+        var runtimeBuildingData = currentBuildings[type];
 
-        building.Level++;
-        building.TotalProduction = building.MailGenerated * (ulong)building.Level;
+        runtimeBuildingData.Level++;
+        runtimeBuildingData.TotalProduction = runtimeBuildingData.MailGenerated * (ulong)runtimeBuildingData.Level;
 
-        currentBuildings[type] = building;
+        currentBuildings[type] = runtimeBuildingData;
 
-        UpdateBuilding(null, building);
+        if (spawnedBuildingsData.Contains(runtimeBuildingData))
+        {
+            var t = spawnedBuildingsData.Where(x => x.BuildingType == type).FirstOrDefault();
+            spawnedBuildingsData.Remove(t);
+        }
+        spawnedBuildingsData.Add(runtimeBuildingData);
 
-        // TODO: Spawn building
+        UpdateBuilding(null, runtimeBuildingData);
+
+        var building = BuildBuilding(type);
+
+        spawnedBuildingsVisuals.Add(building);
     }
 
-    public void BuildBuilding(EBuildingType type)
+    private Building BuildBuilding(EBuildingType type)
     {
+        var prefab = buildingsData.Where(x => x.data.BuildingType == type).FirstOrDefault().BuildingPrefab;
+        Building building = null;
         switch (type)
         {
             case EBuildingType.TimeMachine:
-
+                Vector2 position = buildingsRoot.transform.position;
+                var randomOffset = new Vector2(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-4, 4));
+                var buildingInst = Instantiate(prefab);
+                buildingInst.transform.position = position + randomOffset;
+                building = buildingInst.GetComponent<Building>();
                 break;
         }
+
+        return building;
     }
     public BuildingData GetBuildingData(EBuildingType type)
     {
@@ -81,8 +114,6 @@ public class BuildingManager : Singleton<BuildingManager>
     public void UpdateBuilding(Building building, BuildingData data)
     {
         buildingUIEntries[data.BuildingType].UpdateData(data);
-
-
     }
 
     public void CheckUpgradeAvailability(ulong currentGold)

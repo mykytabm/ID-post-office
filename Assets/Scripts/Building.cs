@@ -6,45 +6,60 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public Transform visualRoot;
-
     private BuildingData _data;
-    private float _t;
-    private float _targetT;
-    private ulong _generationRate;
 
-    void Awake()
+    private Vector2 _mouseOffset;
+
+    public bool IsHeld { get; private set; }
+
+    private void Awake()
     {
-        UpdateSettings();
+        // visualRoot.localScale = Vector3.zero;
     }
 
-    void FixedUpdate()
+    private void Start()
     {
-        _t -= Time.fixedDeltaTime;
-        if (_t <= 0)
+        // ScaleUpEffect();
+    }
+
+    private void OnDisable()
+    {
+        IsHeld = false;
+    }
+    private void OnMouseDown()
+    {
+        IsHeld = true;
+        _mouseOffset = (Vector2)transform.position - GetMousePos();
+    }
+
+    private void OnMouseDrag()
+    {
+        if (IsHeld)
         {
-            GameManager.Instance.GoldReceive(new GoldReceiveSettings(_data.BuildingType, transform.position, _generationRate, _data.SpawnEffects));
-            BounceEffect();
-            _t = _targetT;
+            transform.position = GetMousePos() + _mouseOffset;
         }
     }
 
-    private void BounceEffect()
+    private void OnMouseUp()
+    {
+        IsHeld = false;
+    }
+
+    private Vector2 GetMousePos()
+    {
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        return mousePos;
+    }
+
+    private void ScaleUpEffect()
     {
         if (visualRoot)
         {
             visualRoot.DOKill();
             var clickSequence = DOTween.Sequence();
-            clickSequence.Append(visualRoot.DOScale(Vector3.one * 0.85f, 0.1f).SetEase(Ease.InQuad));
+            clickSequence.Append(visualRoot.DOScale(Vector3.one * 1.2f, 0.4f).SetEase(Ease.InQuad));
             clickSequence.Append(visualRoot.DOScale(Vector3.one, 0.2f));
         }
-    }
-
-    public void UpdateSettings()
-    {
-        _data = BuildingManager.Instance.GetBuildingData(_data.BuildingType);
-
-        _targetT = _data.Time;
-        _t = _targetT;
-        _generationRate = _data.MailGenerated;
     }
 }

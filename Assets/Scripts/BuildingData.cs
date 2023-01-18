@@ -2,7 +2,7 @@
 using System;
 
 [Serializable]
-public struct BuildingData
+public class BuildingData
 {
     public string BuildingName;
     public EBuildingType BuildingType;
@@ -13,6 +13,7 @@ public struct BuildingData
     public ulong TotalProduction;
     public float Time;
     public bool SpawnEffects;
+    public float currentTime;
 
     public BuildingData(string BuildingName, EBuildingType BuildingType, ulong InitialCost, float GrowthRate, int Level, ulong mailGenerated, ulong TotalProduction, float Time,
     bool SpawnEffects)
@@ -26,6 +27,7 @@ public struct BuildingData
         this.TotalProduction = TotalProduction;
         this.Time = Time;
         this.SpawnEffects = SpawnEffects;
+        currentTime = 0;
     }
 
     public BuildingData(BuildingData data)
@@ -39,5 +41,6 @@ public struct BuildingData
         this.TotalProduction = data.TotalProduction;
         this.Time = data.Time;
         this.SpawnEffects = data.SpawnEffects;
+        currentTime = 0;
     }
 }

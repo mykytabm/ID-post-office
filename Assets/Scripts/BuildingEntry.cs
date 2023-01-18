@@ -42,7 +42,14 @@ public class BuildingEntry : MonoBehaviour
         {
             Description.text = description;
         }
-        Level.text = buildingData.Level.ToString();
+        if (buildingData.Level < 1)
+        {
+            Level.text = "";
+        }
+        else
+        {
+            Level.text = buildingData.Level.ToString();
+        }
 
         if (buildingData.Level > 0)
         {

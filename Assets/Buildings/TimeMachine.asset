@@ -17,8 +17,12 @@ MonoBehaviour:
   data:
     BuildingName: Mail Machine
     BuildingType: 1
-    InitialCost: 100
+    InitialCost: 13
     GrowthRate: 1.07
     Level: 0
-    MailGenerated: 10
+    MailGenerated: 1
     TotalProduction: 0
+    Time: 1
+    SpawnEffects: 1
+    currentTime: 0
+  BuildingPrefab: {fileID: 2551074021635541441, guid: 27ecaf3fe0bee674f8b5ea0ad78c19ec, type: 3}

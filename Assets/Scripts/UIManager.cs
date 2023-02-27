@@ -3,7 +3,9 @@ using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
-    public GameObject MessageScreenRoot;
+    public GameObject UpgradesScreen;
+    public GameObject GarageScreen;
+
     public TextMeshProUGUI goldText;
 
     private GameManager _gameManager;
@@ -13,11 +15,21 @@ public class UIManager : Singleton<UIManager>
         _gameManager = GameManager.Instance;
     }
 
-    public void ToggleMessageScreen()
+    public void OpenUpgradeScreen()
     {
-        if (MessageScreenRoot)
+        if (UpgradesScreen)
         {
-            MessageScreenRoot.SetActive(!MessageScreenRoot.activeSelf);
+            GarageScreen.SetActive(false);
+            UpgradesScreen.SetActive(true);
+        }
+    }
+
+    public void OpenGarageScreen()
+    {
+        if (GarageScreen)
+        {
+            GarageScreen.SetActive(true);
+            UpgradesScreen.SetActive(false);
         }
     }
 

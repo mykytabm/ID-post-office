@@ -10,9 +10,9 @@ namespace System.Runtime.CompilerServices
 
 public static class Utils
 {
-    public static IEnumerator Wait(float waitInMs, Action action)
+    public static IEnumerator Wait(float waitInSeconds, Action action)
     {
-        yield return new WaitForSeconds(waitInMs);
+        yield return new WaitForSeconds(waitInSeconds);
         action();
     }
 

@@ -190,7 +190,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!114 &1255954052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualRoot: {fileID: 4227904157393200196}
-  mineType: 0
 --- !u!1 &8407300427191706443
 GameObject:
   m_ObjectHideFlags: 0

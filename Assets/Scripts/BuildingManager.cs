@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildingManager : Singleton<BuildingManager>
 {
@@ -14,9 +15,13 @@ public class BuildingManager : Singleton<BuildingManager>
     public Dictionary<EBuildingType, BuildingEntry> buildingUIEntries = new();
 
     public List<Building> spawnedBuildingsVisuals = new();
-
     public List<BuildingData> spawnedBuildingsData = new();
+
     public Transform buildingsRoot;
+    public Transform factoriesRoot;
+    public Transform portalRoot;
+
+    private int _factoriesCount;
 
     private void Start()
     {
@@ -84,23 +89,50 @@ public class BuildingManager : Singleton<BuildingManager>
 
         UpdateBuilding(null, runtimeBuildingData);
 
-        var building = BuildBuilding(type);
-
-        spawnedBuildingsVisuals.Add(building);
+        var building = BuildBuilding(runtimeBuildingData);
+        if (building != null)
+        {
+            spawnedBuildingsVisuals.Add(building);
+        }
     }
 
-    private Building BuildBuilding(EBuildingType type)
+    private Building BuildBuilding(BuildingData data)
     {
-        var prefab = buildingsData.Where(x => x.data.BuildingType == type).FirstOrDefault().BuildingPrefab;
+        var prefab = buildingsData.Where(x => x.data.BuildingType == data.BuildingType).FirstOrDefault().BuildingPrefab;
         Building building = null;
-        switch (type)
+        GameObject buildingInst;
+        switch (data.BuildingType)
         {
+            case EBuildingType.WinGame:
+                SceneManager.LoadScene("WinScene");
+                break;
             case EBuildingType.TimeMachine:
-                Vector2 position = buildingsRoot.transform.position;
-                var randomOffset = new Vector2(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-4, 4));
-                var buildingInst = Instantiate(prefab);
-                buildingInst.transform.position = position + randomOffset;
-                building = buildingInst.GetComponent<Building>();
+                if (data.Level < 30 && data.Level % 2 == 0)
+                {
+                    Vector2 pos = buildingsRoot.transform.position;
+                    var randomOffset = new Vector2(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-4, 4));
+                    buildingInst = Instantiate(prefab);
+                    buildingInst.transform.position = pos + randomOffset;
+                    building = buildingInst.GetComponent<Building>();
+                }
+                break;
+            case EBuildingType.Satelite:
+                if (data.Level < 30 && (data.Level == 1 || data.Level % 2 == 0))
+                {
+                    buildingInst = Instantiate(prefab);
+                    building = buildingInst.GetComponent<Building>();
+                    buildingInst.GetComponent<MoveInCircle>().target = portalRoot;
+                }
+                break;
+            case EBuildingType.Plant:
+                if (data.Level < 30)
+                {
+                    buildingInst = Instantiate(prefab);
+                    Vector2 position = (Vector2)factoriesRoot.transform.position + new Vector2(_factoriesCount * 0.6f, 0);
+                    building = buildingInst.GetComponent<Building>();
+                    buildingInst.transform.position = position;
+                }
+                _factoriesCount++;
                 break;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -12,14 +13,16 @@ public class Building : MonoBehaviour
 
     public bool IsHeld { get; private set; }
 
+    public Action SpawnAction;
+
     private void Awake()
     {
-        // visualRoot.localScale = Vector3.zero;
+        visualRoot.localScale = Vector3.zero;
     }
 
     private void Start()
     {
-        // ScaleUpEffect();
+        ScaleUpEffect();
     }
 
     private void OnDisable()
@@ -56,10 +59,13 @@ public class Building : MonoBehaviour
     {
         if (visualRoot)
         {
-            visualRoot.DOKill();
             var clickSequence = DOTween.Sequence();
             clickSequence.Append(visualRoot.DOScale(Vector3.one * 1.2f, 0.4f).SetEase(Ease.InQuad));
             clickSequence.Append(visualRoot.DOScale(Vector3.one, 0.2f));
+            clickSequence.OnComplete(() =>
+            {
+                SpawnAction?.Invoke();
+            });
         }
     }
 }

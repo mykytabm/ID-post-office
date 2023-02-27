@@ -16,12 +16,13 @@ MonoBehaviour:
   Description: 
   data:
     BuildingName: Mail Factory
-    BuildingType: 2
-    InitialCost: 100000
-    GrowthRate: 1.3
+    BuildingType: 3
+    InitialCost: 15000
+    GrowthRate: 1.15
     Level: 0
     MailGenerated: 1000
     TotalProduction: 0
-    Time: 1
+    Time: 2
     SpawnEffects: 1
+    currentTime: 0
   BuildingPrefab: {fileID: 5017816533309995263, guid: afb121d29ec809e4f8cd4ad424afaea7, type: 3}

@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     private TextSpawner _textSpawner;
 
     private UIManager _uiManager;
+
     void Start()
     {
         _textSpawner = GetComponent<TextSpawner>();
@@ -46,11 +47,17 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void SetGoldPerClick(ulong newGoldPerClick)
+    {
+        _goldPerClick = newGoldPerClick;
+    }
+
     private void ReceiveGold(ulong gold)
     {
         Gold += gold;
         _uiManager.UpdateGold();
         BuildingManager.Instance.CheckUpgradeAvailability(Gold);
+        UpgradeManager.Instance.CheckUpgradeAvailability(Gold);
     }
 
     public void SpendGold(ulong gold)
@@ -58,6 +65,8 @@ public class GameManager : Singleton<GameManager>
         Gold -= gold;
         _uiManager.UpdateGold();
         BuildingManager.Instance.CheckUpgradeAvailability(Gold);
+        UpgradeManager.Instance.CheckUpgradeAvailability(Gold);
+
     }
 
     public void SpawnText(TextSettings settings)
@@ -70,9 +79,11 @@ public record GoldReceiveSettings(EBuildingType mineType, Vector2 pos, ulong gol
 
 public enum EBuildingType
 {
+    StampMachine,
     Satelite,
     TimeMachine,
     Plant,
     Gun,
-    MiniPortal
+    MiniPortal,
+    WinGame
 }

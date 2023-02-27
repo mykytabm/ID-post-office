@@ -16,12 +16,13 @@ MonoBehaviour:
   Description: 
   data:
     BuildingName: Satellite
-    BuildingType: 0
-    InitialCost: 10000
+    BuildingType: 1
+    InitialCost: 1000
     GrowthRate: 1.15
     Level: 0
-    MailGenerated: 50
+    MailGenerated: 100
     TotalProduction: 0
     Time: 1
     SpawnEffects: 1
+    currentTime: 0
   BuildingPrefab: {fileID: 8407300427115752506, guid: 588996c1f2e39804187e9234fb671d26, type: 3}
